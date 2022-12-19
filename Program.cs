@@ -11,35 +11,60 @@ int[] CreateRandomArray() {
     return array;
 }
 
+int GetMaxMark(int[] marks) {
+    int max = marks[0]; //create an integer variable max with value of the first element of array
+    for (int j = 0; j < marks.Length; j++) //create a loop with an integer variable j = 0, if j < array length, add 1 to j
+    {
+        int current = marks[j];
 
+        //if current element more than max set current to max
+        if (current > max)
+        {
+            max = current;
+        }
 
-void WriteStudentPerformance(int[] marks, string name)
+    }
+    return max;
+}
+
+int GetMinMark(int[] marks)
+{
+    int min = marks[0]; //create an integer variable min with value of the first element of array
+    for (int j = 0; j < marks.Length; j++) //create a loop with an integer variable j = 0, if j < array length, add 1 to j
+    {
+        int current = marks[j];
+
+        //if current element more than max set current to max
+        if (current < min)
+        {
+            min = current;
+        }
+
+    }
+    return min;
+}
+
+double GetAverageMark(int[] marks)
+{
+    double sum = 0; //create floating point variable sum with value 0
+    for (int j = 0; j < marks.Length; j++) //create a loop with an integer variable j = 0, if j < array length, add 1 to j
+    {
+        int current = marks[j];
+
+        // add current element to the sum
+        sum += current;
+    }
+    // calculate the average
+    double average = sum / marks.Length;
+    return average;
+}
+    void WriteStudentPerformance(int[] marks, string name)
 {
     if (marks.Length > 0) // condition check: if the length of the array is greater than zero
     {
-        double sum = 0; //create floating point variable sum with value 0
-        int max = marks[0]; //create an integer variable max with value of the first element of array
-        int min = marks[0]; //create an integer variable min with value of the first element of array
-        for (int j = 0; j < marks.Length; j++) //create a loop with an integer variable j = 0, if j < array length, add 1 to j
-        {
-            int current = marks[j];
-
-            // add current element to the sum
-            sum += current;
-
-            //if current element more than max set current to max
-            if (current > max)
-            {
-                max = current;
-            }
-            //if current element less than min set current to min
-            if (current < min)
-            {
-                min = current;
-            }
-        }
-        // calculate the average
-        double average = sum / marks.Length;
+        int max = GetMaxMark(marks);
+        int min = GetMinMark(marks);
+        double average = GetAverageMark(marks);
 
         // show results
         Console.WriteLine($"Student name: {name}");
