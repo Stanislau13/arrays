@@ -2,23 +2,24 @@
 
 namespace Excersise5;
 
-internal class Triangles : GeometricFigure
+internal class Triangle : GeometricFigure
 {
     public Point FirstApex { get; set; }
     public Point SecondApex { get; set; }
     public Point ThreeApex { get; set; }
 
-    // public Triangles(int x1, int x2, int x3, int y1, int y2)
-    public Triangles(Point firstApex, Point fourApex, Point threeApex)
+    public Triangle(Point firstApex, Point fourApex, Point threeApex, Color color, Border border)
+        : base(color, border)
     {
         FirstApex = firstApex;
         SecondApex = fourApex;
         ThreeApex = threeApex;
     }
+    public Triangle(Point firstApex, Point fourApex, Point threeApex)
+        : this(firstApex, fourApex, threeApex, Color.Empty, null) { }
 
     public override double CalculateArea()
     {
-        //  double h = SecondApex.Y - FirstApex.Y;
         double sideA = FirstApex.Distance(ThreeApex);
         double sideB = FirstApex.Distance(SecondApex);
         double sideC = SecondApex.Distance(ThreeApex);

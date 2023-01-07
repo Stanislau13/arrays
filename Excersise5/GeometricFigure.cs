@@ -4,16 +4,17 @@ namespace Excersise5;
 
 abstract class GeometricFigure
 {
-    public Color FigureColor { get; set; }
-    // public Color LineColor { get; set; }
+    public Color Color { get; set; }
+    public Border Border { get; set; }
 
     public GeometricFigure()
     {
     }
 
-    public GeometricFigure(Color figureColor)
+    public GeometricFigure(Color color, Border border)
     {
-       FigureColor = figureColor;
+       Color = color;
+       Border = border;
     }
 
     public abstract double CalculateArea();

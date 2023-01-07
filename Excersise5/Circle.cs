@@ -20,17 +20,15 @@ class Circle : GeometricFigure
         }
     }
     public double Radius { get; set; }
+
+    public Circle(Point centr, double radius, Color color, Border border)
+         : base(color, border)
+    {
+        Centr = centr;
+        Radius = radius;
+    }
     public Circle(Point centr, double radius)
-    {
-        Centr = centr;
-        Radius = radius;
-    }
-    public Circle(Point centr, double radius, Color circleColor)
-         : base(circleColor)
-    {
-        Centr = centr;
-        Radius = radius;
-    }
+        : this(centr, radius, Color.Empty, null) { }
     public override double CalculateArea()
     {
         return Math.PI * Radius * 2;
