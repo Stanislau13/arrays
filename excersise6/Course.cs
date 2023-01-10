@@ -4,9 +4,9 @@ internal class Course
 {
     public string Name { get; set; }
     public string Description { get; set; }
-    public Course(string courseName, string coureDescription) 
+    public Course(string courseName, string courseDescription) 
     {
         Name = courseName;
-        Description = coureDescription;
+        Description = courseDescription;
     }
 }
