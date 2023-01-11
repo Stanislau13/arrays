@@ -1,6 +1,4 @@
-﻿
-namespace Excersise5;
-
+﻿namespace Excersise5;
 internal class Program
 {
     static void Main(string[] args)
@@ -25,9 +23,12 @@ internal class Program
         foreach(GeometricFigure figure in figures)
         {
             summa += figure.CalculateArea();
-            Console.WriteLine($"Figure type is {figure}, {figure.Color}, " + 
-            $"Border {figure.Border.Color}, Border style is {figure.Border.Style}\n");
+            if (figure is Triangle)
+            {
+                Console.WriteLine($"{figure}, {figure.Border}\n");
+            }
         }
         Console.WriteLine(summa);
+        
     }
 }
