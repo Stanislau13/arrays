@@ -1,4 +1,6 @@
-﻿namespace excersise6;
+﻿using System.Net;
+
+namespace excersise6;
 
 internal class Room
 {
@@ -14,5 +16,13 @@ internal class Room
         Laboratory,
         Seminar,
         Auxiliary
+    }
+    public override bool Equals(Object other)
+    {
+        if (other == null || !GetType().Equals(other.GetType()))
+        {
+            return false;
+        }
+        return this == other || Assignment.Equals(((Room)other).Assignment);
     }
 }

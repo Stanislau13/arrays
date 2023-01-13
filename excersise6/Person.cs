@@ -1,4 +1,6 @@
-﻿namespace excersise6;
+﻿using System.Xml.Linq;
+
+namespace excersise6;
 
 internal class Person
 {
@@ -10,5 +12,14 @@ internal class Person
         FirstName = firstName;
         LastName = lastName;
         PersonAddress = address;
+    }
+    public override bool Equals(Object other)
+    {
+        if (other == null || !GetType().Equals(other.GetType()))
+        {
+            return false;
+        }
+        Person otherPerson = (Person) other;
+        return this == other || (FirstName.Equals(otherPerson.FirstName) && LastName.Equals(otherPerson.LastName));
     }
 }

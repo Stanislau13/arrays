@@ -1,4 +1,6 @@
-﻿namespace excersise6;
+﻿using System.Net;
+
+namespace excersise6;
 
 internal class Course
 {
@@ -8,5 +10,13 @@ internal class Course
     {
         Name = courseName;
         Description = courseDescription;
+    }
+    public override bool Equals(Object other)
+    {
+        if (other == null || !GetType().Equals(other.GetType()))
+        {
+            return false;
+        }
+        return this == other || Name.Equals(((Course)other).Name);
     }
 }

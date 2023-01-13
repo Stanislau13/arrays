@@ -1,4 +1,5 @@
-﻿using static System.Collections.Specialized.BitVector32;
+﻿using System.Collections.Generic;
+using static System.Collections.Specialized.BitVector32;
 
 namespace excersise6;
 
@@ -26,7 +27,8 @@ internal class Program
         Teacher Employee6 = new(course1, person6, 00001);
         DegreeTeacher Employee7 = new("Proffessor", "Docent", course2, person7, 00002);
 
-        UniversityEmployee[] employees = { 
+        List<UniversityEmployee> employees = new () 
+        { 
             Employee1,
             Employee2, 
             Employee3, 
@@ -39,23 +41,27 @@ internal class Program
         ShowInfoAboutEmploees(employees);
         Console.WriteLine();
         Console.WriteLine("*********************** Teachers ***********************");
-        ShowInfoAboutEmploees(Array.FindAll(employees, employee => employee is Teacher));
+        ShowInfoAboutEmploees(employees.FindAll(employee => employee is Teacher));
+
+        string a = University.AddEmployee(Employee7);
+        Console.WriteLine(a);
+
 
         Room Room1 = new(Room.AssignmentType.Laboratory);
         Room Room2 = new(Room.AssignmentType.Lecture);
         Room Room3 = new(Room.AssignmentType.Auxiliary);
         Room Room4 = new(Room.AssignmentType.Seminar);
         
-        Room[] Rooms1 = { Room1, Room2};
-        Room[] Rooms2 = { Room3, Room4};
+        List<Room> Rooms1 = new (){ Room1, Room2};
+        List<Room> Rooms2 = new (){ Room3, Room4};
 
         Building Building1 = new("Studio 66 Patrick Terrace Callumfort", Rooms1);
         Building Building2 = new("Studio 68 Patrick Terrace Callumfort", Rooms2);
 
-        Building[] Buildings = {Building1, Building2};
+        List <Building> Buildings = new (){Building1, Building2};
         University University = new(person8, Buildings, employees);
     }
-    public static void ShowInfoAboutEmploees(UniversityEmployee[] employees)
+    public static void ShowInfoAboutEmploees(List<UniversityEmployee> employees)
     {
         foreach (UniversityEmployee employee in employees)
         {
