@@ -3,7 +3,7 @@
 internal class Teacher : UniversityEmployee
 {
     public Course Course { get; set; }
-    public Teacher(Course course, Person person, int id)
+    public Teacher(Course course, Person person, string id)
         : base(person, id)
     {
         Course = course;

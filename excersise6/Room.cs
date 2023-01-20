@@ -5,10 +5,12 @@ namespace excersise6;
 internal class Room
 {
     public AssignmentType Assignment { get; set; }
+    public int Number { get; set; }
 
-    public Room(AssignmentType assignment) 
+    public Room(AssignmentType assignment, int number) 
     {
         Assignment = assignment;
+        Number = number;
     }
     public enum AssignmentType
     {
@@ -23,6 +25,6 @@ internal class Room
         {
             return false;
         }
-        return this == other || Assignment.Equals(((Room)other).Assignment);
+        return this == other || Number.Equals(((Room)other).Number);
     }
 }

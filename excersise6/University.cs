@@ -13,6 +13,7 @@ internal class University
         Buildings = building;
         UniversityEmployees = employees;
     }
+
     public override bool Equals(Object other)
     {
         if (other == null || !GetType().Equals(other.GetType()))
@@ -21,14 +22,30 @@ internal class University
         }
         return this == other || Rector.Equals(((University)other).Rector);
     }
-        public bool AddEmployee (UniversityEmployee newEmployee)
+
+    public bool AddEmployee(UniversityEmployee newEmployee)
     {
         foreach (UniversityEmployee employee in UniversityEmployees)
         {
             if (employee.Equals(newEmployee))
+            {
                 return false;
+            }
         }
-            UniversityEmployees.Add(newEmployee);
-                return true;
+        UniversityEmployees.Add(newEmployee);
+        return true;
+    }
+
+    public bool AddBuilding(Building newBuilding)
+    {
+        foreach (Building building in Buildings)
+        {
+            if (building.Equals(newBuilding))
+            {
+                return false;
+            }
+        }
+        Buildings.Add(newBuilding);
+        return true;
     }
 }
