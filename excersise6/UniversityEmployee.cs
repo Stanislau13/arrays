@@ -1,9 +1,34 @@
-﻿namespace excersise6;
+﻿using System.Data;
+using System.Xml.Linq;
 
-internal abstract class UniversityEmployee
+namespace excersise6;
+
+internal abstract class UniversityEmployee: IComparable
 {
     public Person Person { get; set; }
-    public string TaxID { get; set; }
+
+    //task 6.1
+    private string _taxID;
+    public string TaxID 
+    {
+        get 
+        {
+            return _taxID;
+        }
+        set
+        {
+            ValidateTaxID(value);
+            _taxID = value;
+        }
+    }
+
+    private static void ValidateTaxID(string value)
+    {
+        if (Int32.Parse(value) < 0)
+        {
+            throw new ArgumentException("Wrong ID");
+        }
+    }
 
     public UniversityEmployee(Person person, string id) 
     {
@@ -24,6 +49,13 @@ internal abstract class UniversityEmployee
     public override string ToString()
     {        
         return $"{Person.FirstName} {Person.LastName} {TaxID}"; 
+    }
+    public int CompareTo(object obj)
+    {
+        if (obj is null) return -1;
+
+        UniversityEmployee otherUniversityEmployee = (UniversityEmployee) obj;
+        return otherUniversityEmployee.Person.GetFirstAndLastNameLength().CompareTo(Person.GetFirstAndLastNameLength());
     }
 }
 

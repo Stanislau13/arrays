@@ -1,11 +1,33 @@
-﻿using System.Xml.Linq;
-
-namespace excersise6;
+﻿namespace excersise6;
 
 internal class Person
 {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
+    private string _firstName;
+    public string FirstName 
+    {
+        get 
+        { 
+           return _firstName;
+        }
+        set
+        {
+            ValidateStringLength(value, LastName);
+            _firstName = value;
+        }
+    }
+    private string _lastName;
+    public string LastName 
+    {
+        get
+        {
+            return _lastName;
+        }
+        set
+        {
+            ValidateStringLength(FirstName, value);
+            _lastName = value;
+        }
+    }
     public string PersonAddress { get; set; }
     public Person(string firstName, string lastName, string address)
     {
@@ -21,5 +43,31 @@ internal class Person
         }
         Person otherPerson = (Person) other;
         return this == other || (FirstName.Equals(otherPerson.FirstName) && LastName.Equals(otherPerson.LastName));
+    }
+    public int GetFirstAndLastNameLength()
+    {
+        return GetFirstAndLastNameLength(FirstName, LastName);
+    }
+
+    private int GetNameLanghts(string name) 
+    {
+        if (name is null)
+        {
+            return 0;
+        }
+        return name.Length;
+    }
+
+    private void ValidateStringLength(string firstName, string lastName)
+    {
+        if (GetFirstAndLastNameLength(firstName, lastName) > 15)
+        {
+            throw new ArgumentException("A last name and first name length of more than 15 characters");
+        }
+    }
+
+    private int GetFirstAndLastNameLength(string firstName, string lastName)
+    {
+        return (GetNameLanghts(firstName) + GetNameLanghts(lastName));
     }
 }

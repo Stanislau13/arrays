@@ -1,10 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using static System.Collections.Specialized.BitVector32;
-
-namespace excersise6;
-
+﻿namespace excersise6;
 internal class Program
 {
     static void Main(string[] args)
@@ -15,7 +9,7 @@ internal class Program
         Person person4 = new("Morgan", "Welch", "Studio 73j Patrick Terrace Callumfort");
         Person person5 = new("Alfred", "Melton", "Flat 50 Moore Common North Sasha");
         Person person6 = new("Leslie", "Warner", "9 Bruce Cliff Shannonshire");
-        Person person7 = new("Christopher", "Leonard", "171 Murray Shoals Walkerstad");
+        Person person7 = new("Christopher", "Le", "171 Murray Shoals Walkerstad");
         Person person8 = new("Alfred", "Dixon", "Studio 19 Cliff Shannonshire");
         Person person9 = new("Leslie", "Dixon", "171 Murray Shannonshire");
 
@@ -23,7 +17,7 @@ internal class Program
         Course course2 = new("Chemistry", "The course 'Chemistry' gives the development of knowledge, skills and skills of students on the decision");
         Course course3 = new("Physic", "......");
 
-        SupportStaff Employee1 = new("Driver", person1, "00003");
+        SupportStaff Employee1 = new("Driver", person1, "00001");
         SupportStaff Employee2 = new("Guard", person2, "00004");
         SupportStaff Employee3 = new("Cleaner", person3, "00005");
         SupportStaff Employee4 = new("Cook", person4, "00006");
@@ -35,7 +29,7 @@ internal class Program
         var employees = new List<UniversityEmployee>() 
         { 
             Employee1,
-            Employee2, 
+            Employee2,
             Employee3, 
             Employee4, 
             Employee5, 
@@ -44,10 +38,10 @@ internal class Program
             Employee8
         };
         Console.WriteLine("***************** University Employees *****************");
-        ShowInfoAboutEmploees(employees);
+        ShowInfoAboutEmploeesWithDuties(employees);
         Console.WriteLine();
         Console.WriteLine("*********************** Teachers ***********************");
-        ShowInfoAboutEmploees(employees.FindAll(employee => employee is Teacher));
+        ShowInfoAboutEmploeesWithDuties(employees.FindAll(employee => employee is Teacher));
 
         //task 5.1
         Console.WriteLine("********************************************************");
@@ -73,13 +67,13 @@ internal class Program
         Room Room4 = new(Room.AssignmentType.Seminar, 2);
         Room Room5 = new(Room.AssignmentType.Auxiliary, 3);
 
-        List<Room> Rooms1 = new (){ Room1, Room2};
-        List<Room> Rooms2 = new (){ Room3, Room4, Room5};
+        List<Room> Rooms1 = new(){ Room1, Room2};
+        List<Room> Rooms2 = new(){ Room3, Room4, Room5};
 
         Building Building1 = new("Studio 66 Patrick Terrace Callumfort", Rooms1);
         Building Building2 = new("Studio 68 Patrick Terrace Callumfort", Rooms2);
 
-        List <Building> Buildings = new (){Building1, Building2};
+        List <Building> Buildings = new(){Building1, Building2};
         University University = new(person8, Buildings, employees);
 
         bool EmployeeAdd = University.AddEmployee(Employee7);
@@ -93,12 +87,55 @@ internal class Program
         Building buildingsWithMaxNumberOfRooms = Buildings.OrderByDescending(building => building.Rooms.Count).First();
         Console.WriteLine(buildingsWithMaxNumberOfRooms.Address);
         Console.WriteLine("********************************************************");
+        //task 6.1
+        try
+        {
+            new SupportStaff("Driver", person1, "-111");
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine(ex.Message + " oops..");
+        }
+        Console.WriteLine("********************************************************");
+        //task 6.2
+        try
+        {
+            new Person ("Douglas1233399999222", "Glenn12322121212131232123213", "593 Adams Coves Wardside"); ;
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine(ex.Message + " oops..");
+        }
+        Console.WriteLine("********************************************************");
+        //task 6.3 Sort()
+        List<UniversityEmployee> employeeForSort = new(employees);
+        employeeForSort.Sort();
+        ShowInfoAboutEmploeesWithNameLength(employeeForSort);
+        Console.WriteLine("********************************************************");
+        //task 6.3 OrderBy
+        var employeeForOrdeerBy = employees.OrderByDescending(x => x.Person.GetFirstAndLastNameLength())
+            .Select(employee => $"{employee.Person.FirstName} {employee.Person.LastName} {employee.Person.GetFirstAndLastNameLength()}");
+        Console.WriteLine(string.Join(Environment.NewLine, employeeForOrdeerBy));
+        Console.WriteLine("********************************************************");
+        //task 6.3 Sort(IComparer)
+        List<UniversityEmployee> employeeForSort2 = new(employees);
+        Comparer<UniversityEmployee> universityEmployeeComparer = Comparer<UniversityEmployee>.Create((x, y) => y.Person.GetFirstAndLastNameLength().CompareTo(x.Person.GetFirstAndLastNameLength()));
+        employeeForSort2.Sort(universityEmployeeComparer);
+        ShowInfoAboutEmploeesWithNameLength(employeeForSort2);
     }
-    public static void ShowInfoAboutEmploees(List<UniversityEmployee> employees)
+    public static void ShowInfoAboutEmploeesWithDuties(List<UniversityEmployee> employees)
     {
         foreach (UniversityEmployee employee in employees)
         {
             Console.WriteLine($"{employee.Person.FirstName} {employee.Person.LastName} {employee.GetOfficialDuties()}");
+        }
+    }
+
+    public static void ShowInfoAboutEmploeesWithNameLength(List<UniversityEmployee> employees)
+    {
+        foreach (UniversityEmployee employee in employees)
+        {
+            Console.WriteLine($"{employee.Person.FirstName} {employee.Person.LastName} {employee.Person.GetFirstAndLastNameLength()}");
         }
     }
 }
