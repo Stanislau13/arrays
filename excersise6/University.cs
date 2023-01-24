@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace excersise6;
+﻿namespace excersise6;
 internal class University
 {
     public List<UniversityEmployee> UniversityEmployees { get; set; }
@@ -13,14 +11,18 @@ internal class University
         Buildings = building;
         UniversityEmployees = employees;
     }
-
-    public override bool Equals(Object other)
+        public override bool Equals(Object other)
     {
         if (other == null || !GetType().Equals(other.GetType()))
         {
             return false;
         }
         return this == other || Rector.Equals(((University)other).Rector);
+    }
+
+    public override int GetHashCode()
+    {
+        return Rector.GetHashCode();
     }
 
     public bool AddEmployee(UniversityEmployee newEmployee)
@@ -36,16 +38,16 @@ internal class University
         return true;
     }
 
-    public bool AddBuilding(Building newBuilding)
-    {
-        foreach (Building building in Buildings)
+        public bool AddBuilding(Building newBuilding)
         {
-            if (building.Equals(newBuilding))
+            foreach (Building building in Buildings)
             {
-                return false;
+                if (building.Equals(newBuilding))
+                {
+                    return false;
+                }
             }
+            Buildings.Add(newBuilding);
+            return true;
         }
-        Buildings.Add(newBuilding);
-        return true;
-    }
 }

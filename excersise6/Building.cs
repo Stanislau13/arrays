@@ -1,6 +1,4 @@
-﻿using System.Dynamic;
-
-namespace excersise6;
+﻿namespace excersise6;
 
 internal class Building
 {
@@ -12,6 +10,7 @@ internal class Building
         Address = address;
         Rooms = rooms;
     }
+
     public override bool Equals(Object other)
     {
         if (other == null || !GetType().Equals(other.GetType()))
@@ -20,6 +19,12 @@ internal class Building
         }
         return this == other || Address.Equals(((Building)other).Address);
     }
+
+    public override int GetHashCode()
+    {
+        return Address.GetHashCode();
+    }
+
     public bool AddRoom(Room newRoom)
     {
         foreach (Room room in Rooms)

@@ -45,27 +45,36 @@ internal class Program
 
         //task 5.1
         Console.WriteLine("********************************************************");
-        var newEmployee = employees.Where(employee => employee.Person.LastName.Contains("W")).OrderBy(employee => employee.TaxID).Select(employee => employee.ToString());
-        Console.WriteLine(string.Join(Environment.NewLine, newEmployee));
+        ShowInfoAboutEmploeesWithTaxId(employees
+            .Where(employee => employee.Person.LastName.StartsWith("W"))
+            .OrderBy(employee => employee.TaxId)
+            .ToList());
         Console.WriteLine("********************************************************");
+
         //task 5.2
-        var newTeacher = employees.Where(employee => (employee is Teacher) && ((Teacher)employee).Course.Name.Equals("Physic")).Select(employee => employee.ToString());
-        Console.WriteLine(string.Join(Environment.NewLine, newTeacher));
+        ShowInfoAboutEmploeesWithTaxId(employees
+            .Where(employee => (employee is Teacher) && ((Teacher)employee).Course.Name.Equals("Physic"))
+            .ToList());
         Console.WriteLine("********************************************************");
+
         //task 5.3
-        var newTaxSupport = employees.Select(employee => $"{employee.TaxID} {employee.GetOfficialDuties()}");
+        var newTaxSupport = employees
+            .Select(employee => $"{employee.TaxId} {employee.GetOfficialDuties()}");
         Console.WriteLine(string.Join(Environment.NewLine, newTaxSupport));
         Console.WriteLine("********************************************************");
+
         //task 5.6
-        var group = employees.GroupBy(employee => employee.Person.LastName).OrderByDescending(group => group.Count()).First();
+        var group = employees
+            .GroupBy(employee => employee.Person.LastName)
+            .MaxBy(group => group.Count());
         Console.WriteLine($"{group.Key} {group.Count()}");
         Console.WriteLine("********************************************************");
 
-        Room Room1 = new(Room.AssignmentType.Laboratory, 1);
-        Room Room2 = new(Room.AssignmentType.Lecture, 2);
-        Room Room3 = new(Room.AssignmentType.Auxiliary, 1);
-        Room Room4 = new(Room.AssignmentType.Seminar, 2);
-        Room Room5 = new(Room.AssignmentType.Auxiliary, 3);
+        Room Room1 = new(AssignmentType.Laboratory, 1);
+        Room Room2 = new(AssignmentType.Lecture, 2);
+        Room Room3 = new(AssignmentType.Auxiliary, 1);
+        Room Room4 = new(AssignmentType.Seminar, 2);
+        Room Room5 = new(AssignmentType.Auxiliary, 3);
 
         List<Room> Rooms1 = new(){ Room1, Room2};
         List<Room> Rooms2 = new(){ Room3, Room4, Room5};
@@ -80,23 +89,29 @@ internal class Program
         bool RoomAdd = Building1.AddRoom(Room2);
 
         //task 5.4
-        var buildingsWithRoom = Buildings.Where(building => building.Rooms.Exists(room => room.Number == 1)).Select(building => building.Address);
+        var buildingsWithRoom = Buildings
+            .Where(building => building.Rooms.Exists(room => room.Number == 1))
+            .Select(building => building.Address);
         Console.WriteLine(string.Join(Environment.NewLine, buildingsWithRoom));
         Console.WriteLine("********************************************************");
+
         //task 5.5
-        Building buildingsWithMaxNumberOfRooms = Buildings.OrderByDescending(building => building.Rooms.Count).First();
+        Building buildingsWithMaxNumberOfRooms = Buildings
+            .MaxBy(building => building.Rooms.Count);
         Console.WriteLine(buildingsWithMaxNumberOfRooms.Address);
         Console.WriteLine("********************************************************");
+
         //task 6.1
         try
         {
-            new SupportStaff("Driver", person1, "-111");
+            new SupportStaff("Driver", person1, "-1ddd11");
         }
         catch (ArgumentException ex)
         {
             Console.WriteLine(ex.Message + " oops..");
         }
         Console.WriteLine("********************************************************");
+
         //task 6.2
         try
         {
@@ -107,19 +122,24 @@ internal class Program
             Console.WriteLine(ex.Message + " oops..");
         }
         Console.WriteLine("********************************************************");
+
         //task 6.3 Sort()
         List<UniversityEmployee> employeeForSort = new(employees);
         employeeForSort.Sort();
         ShowInfoAboutEmploeesWithNameLength(employeeForSort);
         Console.WriteLine("********************************************************");
+
         //task 6.3 OrderBy
-        var employeeForOrdeerBy = employees.OrderByDescending(x => x.Person.GetFirstAndLastNameLength())
-            .Select(employee => $"{employee.Person.FirstName} {employee.Person.LastName} {employee.Person.GetFirstAndLastNameLength()}");
-        Console.WriteLine(string.Join(Environment.NewLine, employeeForOrdeerBy));
+        ShowInfoAboutEmploeesWithNameLength(employees
+            .OrderByDescending(x => x.Person.GetFirstAndLastNameLength())
+            .ToList());
         Console.WriteLine("********************************************************");
+
         //task 6.3 Sort(IComparer)
         List<UniversityEmployee> employeeForSort2 = new(employees);
-        Comparer<UniversityEmployee> universityEmployeeComparer = Comparer<UniversityEmployee>.Create((x, y) => y.Person.GetFirstAndLastNameLength().CompareTo(x.Person.GetFirstAndLastNameLength()));
+        Comparer<UniversityEmployee> universityEmployeeComparer = Comparer<UniversityEmployee>
+            .Create((x, y) => y.Person.GetFirstAndLastNameLength()
+            .CompareTo(x.Person.GetFirstAndLastNameLength()));
         employeeForSort2.Sort(universityEmployeeComparer);
         ShowInfoAboutEmploeesWithNameLength(employeeForSort2);
     }
@@ -128,6 +148,14 @@ internal class Program
         foreach (UniversityEmployee employee in employees)
         {
             Console.WriteLine($"{employee.Person.FirstName} {employee.Person.LastName} {employee.GetOfficialDuties()}");
+        }
+    }
+
+    public static void ShowInfoAboutEmploeesWithTaxId(List<UniversityEmployee> employees)
+    {
+        foreach (UniversityEmployee employee in employees)
+        {
+            Console.WriteLine(employee.ToString());
         }
     }
 

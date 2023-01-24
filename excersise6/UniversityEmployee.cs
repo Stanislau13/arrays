@@ -1,55 +1,64 @@
-﻿using System.Data;
-using System.Xml.Linq;
-
-namespace excersise6;
-
+﻿namespace excersise6;
 internal abstract class UniversityEmployee: IComparable
 {
     public Person Person { get; set; }
 
     //task 6.1
-    private string _taxID;
-    public string TaxID 
+    private string _taxId;
+    public string TaxId 
     {
         get 
         {
-            return _taxID;
+            return _taxId;
         }
         set
         {
-            ValidateTaxID(value);
-            _taxID = value;
+            ValidateTaxId(value);
+            _taxId = value;
         }
     }
 
-    private static void ValidateTaxID(string value)
+    private static void ValidateTaxId(string value)
     {
-        if (Int32.Parse(value) < 0)
+        if (int.TryParse(value, out int result))
         {
-            throw new ArgumentException("Wrong ID");
+            if (result < 0) 
+            {
+                throw new ArgumentException("Wrong ID");
+            }
+            return;
         }
+        throw new ArgumentException("Cannot parse");
     }
 
     public UniversityEmployee(Person person, string id) 
     {
         Person = person;
-        TaxID = id;
+        TaxId = id;
     }
+
     public abstract string GetOfficialDuties();
+
     public override bool Equals(Object other)
     {
-        if (other == null || !GetType().Equals(other.GetType()))
+        if (other == null || ! other.GetType().Equals(typeof(UniversityEmployee)))
         {
             return false;
         }
         UniversityEmployee otherEmpooyee = (UniversityEmployee)other;
-        return this == other || (TaxID.Equals(otherEmpooyee.TaxID));
+        return this == other || (TaxId.Equals(otherEmpooyee.TaxId));
+    }
+
+        public override int GetHashCode()
+    {
+        return TaxId.GetHashCode();  
     }
 
     public override string ToString()
     {        
-        return $"{Person.FirstName} {Person.LastName} {TaxID}"; 
+        return $"{Person.FirstName} {Person.LastName} {TaxId}"; 
     }
+
     public int CompareTo(object obj)
     {
         if (obj is null) return -1;

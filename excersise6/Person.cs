@@ -15,8 +15,9 @@ internal class Person
             _firstName = value;
         }
     }
+
     private string _lastName;
-    public string LastName 
+        public string LastName 
     {
         get
         {
@@ -28,6 +29,7 @@ internal class Person
             _lastName = value;
         }
     }
+
     public string PersonAddress { get; set; }
     public Person(string firstName, string lastName, string address)
     {
@@ -35,6 +37,7 @@ internal class Person
         LastName = lastName;
         PersonAddress = address;
     }
+
     public override bool Equals(Object other)
     {
         if (other == null || !GetType().Equals(other.GetType()))
@@ -44,6 +47,12 @@ internal class Person
         Person otherPerson = (Person) other;
         return this == other || (FirstName.Equals(otherPerson.FirstName) && LastName.Equals(otherPerson.LastName));
     }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(FirstName, LastName);
+    }
+
     public int GetFirstAndLastNameLength()
     {
         return GetFirstAndLastNameLength(FirstName, LastName);

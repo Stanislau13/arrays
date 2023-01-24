@@ -12,13 +12,7 @@ internal class Room
         Assignment = assignment;
         Number = number;
     }
-    public enum AssignmentType
-    {
-        Lecture,
-        Laboratory,
-        Seminar,
-        Auxiliary
-    }
+
     public override bool Equals(Object other)
     {
         if (other == null || !GetType().Equals(other.GetType()))
@@ -26,5 +20,10 @@ internal class Room
             return false;
         }
         return this == other || Number.Equals(((Room)other).Number);
+    }
+
+    public override int GetHashCode()
+    {
+        return Number.GetHashCode();
     }
 }

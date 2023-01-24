@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace excersise6;
+﻿namespace excersise6;
 
 internal class Course
 {
@@ -11,6 +9,7 @@ internal class Course
         Name = courseName;
         Description = courseDescription;
     }
+
     public override bool Equals(Object other)
     {
         if (other == null || !GetType().Equals(other.GetType()))
@@ -18,5 +17,10 @@ internal class Course
             return false;
         }
         return this == other || Name.Equals(((Course)other).Name);
+    }
+
+    public override int GetHashCode()
+    {
+        return Name.GetHashCode();
     }
 }

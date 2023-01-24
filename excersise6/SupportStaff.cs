@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace excersise6;
+﻿namespace excersise6;
 
 internal class SupportStaff : UniversityEmployee
 {
