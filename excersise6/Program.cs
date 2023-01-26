@@ -143,6 +143,7 @@ internal class Program
         employeeForSort2.Sort(universityEmployeeComparer);
         ShowInfoAboutEmploeesWithNameLength(employeeForSort2);
     }
+
     public static void ShowInfoAboutEmploeesWithDuties(List<UniversityEmployee> employees)
     {
         foreach (UniversityEmployee employee in employees)

@@ -41,7 +41,7 @@ internal abstract class UniversityEmployee: IComparable
 
     public override bool Equals(Object other)
     {
-        if (other == null || ! other.GetType().Equals(typeof(UniversityEmployee)))
+        if (other == null || other is not UniversityEmployee)
         {
             return false;
         }
