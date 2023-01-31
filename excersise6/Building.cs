@@ -1,6 +1,6 @@
 ﻿namespace excersise6;
 
-internal class Building
+public class Building
 {
     public string Address { get; set; }
     public List<Room> Rooms { get; set; }

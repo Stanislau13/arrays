@@ -1,5 +1,5 @@
 ﻿namespace excersise6;
-internal class University
+public class University
 {
     public List<UniversityEmployee> UniversityEmployees { get; set; }
     public Person Rector { get; set; }
@@ -38,16 +38,16 @@ internal class University
         return true;
     }
 
-        public bool AddBuilding(Building newBuilding)
+    public bool AddBuilding(Building newBuilding)
+    {
+        foreach (Building building in Buildings)
         {
-            foreach (Building building in Buildings)
+            if (building.Equals(newBuilding))
             {
-                if (building.Equals(newBuilding))
-                {
-                    return false;
-                }
+                return false;
             }
-            Buildings.Add(newBuilding);
-            return true;
         }
+        Buildings.Add(newBuilding);
+        return true;
+    }
 }

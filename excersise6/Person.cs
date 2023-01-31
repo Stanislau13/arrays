@@ -1,6 +1,6 @@
 ﻿namespace excersise6;
 
-internal class Person
+public class Person
 {
     private string _firstName;
     public string FirstName 
@@ -31,6 +31,11 @@ internal class Person
     }
 
     public string PersonAddress { get; set; }
+
+    public Person()
+    {
+    }
+
     public Person(string firstName, string lastName, string address)
     {
         FirstName = firstName;

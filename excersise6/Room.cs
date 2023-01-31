@@ -2,7 +2,7 @@
 
 namespace excersise6;
 
-internal class Room
+public class Room
 {
     public AssignmentType Assignment { get; set; }
     public int Number { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace excersise6;
 
-internal class SupportStaff : UniversityEmployee
+public class SupportStaff : UniversityEmployee
 {
     public string Position { get; set; }
         public SupportStaff(string position, Person person, string id) 
