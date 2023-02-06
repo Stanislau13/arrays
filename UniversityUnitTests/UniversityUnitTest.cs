@@ -83,6 +83,7 @@ public class UniversityUnitTest
 
         Assert.IsTrue(university.AddEmployee(teacher2));
         Assert.AreEqual(university.UniversityEmployees.Count, 2);
+        Assert.IsTrue(university.UniversityEmployees.Contains(teacher2));
     }
 
     [TestMethod]
@@ -106,5 +107,6 @@ public class UniversityUnitTest
 
         Assert.IsTrue(university.AddBuilding(building2));
         Assert.AreEqual(university.Buildings.Count, 2);
+        Assert.IsTrue(university.Buildings.Contains(building2));
     }
 }

@@ -70,5 +70,6 @@ public class BuildingTest
 
         Assert.IsTrue(building.AddRoom(room2));
         Assert.AreEqual(building.Rooms.Count, 2);
+        Assert.IsTrue(building.Rooms.Contains(room2));
     }
 }
