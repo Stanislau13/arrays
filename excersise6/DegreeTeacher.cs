@@ -1,6 +1,6 @@
 ﻿namespace excersise6;
 
-internal class DegreeTeacher : Teacher
+public class DegreeTeacher : Teacher
 {
     public string Degree { get; set; }
     public string Rank { get; set; }

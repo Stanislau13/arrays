@@ -1,13 +1,13 @@
 ﻿namespace excersise6;
-internal abstract class UniversityEmployee: IComparable
+public abstract class UniversityEmployee : IComparable
 {
     public Person Person { get; set; }
 
     //task 6.1
     private string _taxId;
-    public string TaxId 
+    public string TaxId
     {
-        get 
+        get
         {
             return _taxId;
         }
@@ -18,17 +18,8 @@ internal abstract class UniversityEmployee: IComparable
         }
     }
 
-    private static void ValidateTaxId(string value)
+    public UniversityEmployee()
     {
-        if (int.TryParse(value, out int result))
-        {
-            if (result < 0) 
-            {
-                throw new ArgumentException("Wrong ID");
-            }
-            return;
-        }
-        throw new ArgumentException("Cannot parse");
     }
 
     public UniversityEmployee(Person person, string id) 
@@ -51,7 +42,7 @@ internal abstract class UniversityEmployee: IComparable
 
         public override int GetHashCode()
     {
-        return TaxId.GetHashCode();  
+        return TaxId.GetHashCode();
     }
 
     public override string ToString()
@@ -65,6 +56,18 @@ internal abstract class UniversityEmployee: IComparable
 
         UniversityEmployee otherUniversityEmployee = (UniversityEmployee) obj;
         return otherUniversityEmployee.Person.GetFirstAndLastNameLength().CompareTo(Person.GetFirstAndLastNameLength());
+    }
+    private static void ValidateTaxId(string value)
+    {
+        if (int.TryParse(value, out int result))
+        {
+            if (result < 0)
+            {
+                throw new ArgumentException("Wrong ID");
+            }
+            return;
+        }
+        throw new ArgumentException("Cannot parse");
     }
 }
 
